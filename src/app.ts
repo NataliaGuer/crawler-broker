@@ -6,18 +6,18 @@ console.log("broker started");
 const pullQueue = process.env.BROKER_QUEUE;
 const pushQueue = process.env.FETCHER_QUEUE;
 
-const firstJob = {
-  host: "https://en.wikipedia.org",
-  url: "https://en.wikipedia.org/wiki/Portal:Computer_programming",
-};
+// const firstJob = {
+//   host: "https://en.wikipedia.org",
+//   url: "https://en.wikipedia.org/wiki/Portal:Computer_programming",
+// };
 
 const prisma = new PrismaClient();
 
 amqp.connect(process.env.MESSAGE_QUEUE).then((connection) => {
   connection.createChannel().then((channel) => {
-    channel.assertQueue(pushQueue).then(() => {
-      channel.sendToQueue(pushQueue, Buffer.from(JSON.stringify(firstJob)));
-    });
+    // channel.assertQueue(pushQueue).then(() => {
+    //   channel.sendToQueue(pushQueue, Buffer.from(JSON.stringify(firstJob)));
+    // });
 
     channel.assertQueue(pullQueue).then(() => {
       channel.consume(pullQueue, (msg) => {
